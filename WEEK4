@@ -1,0 +1,95 @@
+import java.util.Scanner;
+
+abstract class GeometricShape {
+    int dimension1;
+    int dimension2;
+
+    public GeometricShape() {
+        this.dimension1 = 0;
+        this.dimension2 = 0;
+    }
+
+    public GeometricShape(int dimension1, int dimension2) {
+        this.dimension1 = dimension1;
+        this.dimension2 = dimension2;
+    }
+
+    public abstract void calculateArea();
+}
+
+class RectangleShape extends GeometricShape {
+    public RectangleShape(int length, int width) {
+        dimension1 = length;
+        dimension2 = width;
+    }
+
+    public void calculateArea() {
+        int area = dimension1 * dimension2;
+        System.out.println("Area of Rectangle: " + area);
+    }
+}
+
+class TriangleShape extends GeometricShape {
+    public TriangleShape(int base, int height) {
+        dimension1 = base;
+        dimension2 = height;
+    }
+
+    public void calculateArea() {
+        double area = 0.5 * dimension1 * dimension2;
+        System.out.println("Area of Triangle: " + area);
+    }
+}
+
+class CircleShape extends GeometricShape {
+    public CircleShape(int radius) {
+        dimension1 = radius;
+        dimension2 = 0;
+    }
+
+    public void calculateArea() {
+        double area = Math.PI * dimension1 * dimension1;
+        System.out.println("Area of Circle: " + area);
+    }
+}
+
+public class ShapeCalculator {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Enter length and width for Rectangle:");
+        int length = input.nextInt();
+        int width = input.nextInt();
+        GeometricShape rectangle = new RectangleShape(length, width);
+        rectangle.calculateArea();
+
+        System.out.println("Enter base and height for Triangle:");
+        int base = input.nextInt();
+        int height = input.nextInt();
+        GeometricShape triangle = new TriangleShape(base, height);
+        triangle.calculateArea();
+
+        System.out.println("Enter radius for Circle:");
+        int radius = input.nextInt();
+        GeometricShape circle = new CircleShape(radius);
+        circle.calculateArea();
+
+        input.close();
+    }
+}
+
+
+OUTPUT
+
+Enter length and width for Rectangle:
+5
+3
+Area of Rectangle: 15
+Enter base and height for Triangle:
+4
+6
+Area of Triangle: 12.0
+Enter radius for Circle:
+7
+Area of Circle: 153.93804002589985
