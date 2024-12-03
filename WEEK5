@@ -1,0 +1,121 @@
+import java.util.Scanner;
+
+class BankAccount {
+    protected String accountHolderName;
+    protected int accountId;
+    protected double accountBalance;
+
+    public BankAccount(String accountHolderName, int accountId, double accountBalance) {
+        this.accountHolderName = accountHolderName;
+        this.accountId = accountId;
+        this.accountBalance = accountBalance;
+    }
+
+    public void depositAmount(double amount) {
+        if (amount > 0) {
+            accountBalance += amount;
+            System.out.println("Deposited: " + amount);
+        } else {
+            System.out.println("Invalid deposit amount");
+        }
+    }
+
+    public void showBalance() {
+        System.out.println("Balance: " + accountBalance);
+    }
+}
+
+class SavingsAccount extends BankAccount {
+    private double rateOfInterest;
+
+    public SavingsAccount(String accountHolderName, int accountId, double accountBalance, double rateOfInterest) {
+        super(accountHolderName, accountId, accountBalance);
+        this.rateOfInterest = rateOfInterest;
+    }
+
+    public void calculateAndAddInterest() {
+        double interest = accountBalance * (rateOfInterest / 100);
+        accountBalance += interest;
+        System.out.println("Interest added: " + interest);
+    }
+
+    public void withdrawAmount(double amount) {
+        if (amount <= accountBalance) {
+            accountBalance -= amount;
+            System.out.println("Withdrawn: " + amount);
+        } else {
+            System.out.println("Insufficient balance for withdrawal");
+        }
+    }
+}
+
+class CurrentAccount extends BankAccount {
+    private double minimumRequiredBalance;
+    private double feeCharge;
+
+    public CurrentAccount(String accountHolderName, int accountId, double accountBalance, double minimumRequiredBalance, double feeCharge) {
+        super(accountHolderName, accountId, accountBalance);
+        this.minimumRequiredBalance = minimumRequiredBalance;
+        this.feeCharge = feeCharge;
+    }
+
+    public void withdrawAmount(double amount) {
+        if (amount <= accountBalance) {
+            accountBalance -= amount;
+            System.out.println("Withdrawn: " + amount);
+
+            if (accountBalance < minimumRequiredBalance) {
+                accountBalance -= feeCharge;
+                System.out.println("Fee charge imposed: " + feeCharge);
+            }
+        } else {
+            System.out.println("Insufficient balance for withdrawal");
+        }
+    }
+}
+
+public class BankApplication {
+    public static void main(String[] args) {
+        Scanner inputScanner = new Scanner(System.in);
+        SavingsAccount savingsAccount = new SavingsAccount("Alice", 12345, 1000, 5);
+        CurrentAccount currentAccount = new CurrentAccount("Bob", 67890, 2000, 500, 50);
+
+        System.out.println("Choose Account Type:\n1. Savings Account\n2. Current Account");
+        int userChoice = inputScanner.nextInt();
+
+        switch (userChoice) {
+            case 1:
+                System.out.println("Savings Account Selected");
+                savingsAccount.depositAmount(500);
+                savingsAccount.calculateAndAddInterest();
+                savingsAccount.withdrawAmount(300);
+                savingsAccount.showBalance();
+                break;
+
+            case 2:
+                System.out.println("Current Account Selected");
+                currentAccount.depositAmount(500);
+                currentAccount.withdrawAmount(1800);
+                currentAccount.showBalance();
+                break;
+
+            default:
+                System.out.println("Invalid choice");
+        }
+
+        inputScanner.close();
+    }
+}
+
+OUTPUT:
+
+Choose Account Type:
+1. Savings Account
+2. Current Account
+1
+Savings Account Selected
+Deposited: 500
+Interest added: 50.0
+Withdrawn: 300
+Balance: 1250.0
+
