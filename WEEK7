@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+class InvalidAge extends Exception {
+    public InvalidAge(String message) {
+        super(message);
+    }
+}
+
+class Parent {
+    int parentAge;
+
+    public Parent(int parentAge) throws InvalidAge {
+        if (parentAge < 0) {
+            throw new InvalidAge("Age Cannot be Negative");
+        }
+        this.parentAge = parentAge;
+        System.out.println("Parent's Age: " + this.parentAge);
+    }
+}
+
+class Child extends Parent {
+    int childAge;
+
+    public Child(int parentAge, int childAge) throws InvalidAge {
+        super(parentAge);
+        if (childAge < 0) {
+            throw new InvalidAge("Child's Age Cannot be Negative");
+        }
+        if (childAge >= parentAge) {
+            throw new InvalidAge("Child's Age Cannot be Greater than or Equal to Parent's Age");
+        }
+        this.childAge = childAge;
+        System.out.println("Child's Age: " + this.childAge);
+    }
+}
+
+public class Family {
+    public static void main(String[] args) {
+        Scanner inputScanner = new Scanner(System.in);
+
+        System.out.print("Enter Parent's Age: ");
+        int parentAge = inputScanner.nextInt();
+
+        System.out.print("Enter Child's Age: ");
+        int childAge = inputScanner.nextInt();
+
+        try {
+            Child child = new Child(parentAge, childAge); 
+        } catch (InvalidAge e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+
+        inputScanner.close();
+    }
+}
+
+
+OUTPUT 
+
+Enter Parent's Age: 40
+Enter Child's Age: 45
+Exception: Child's Age Cannot be Greater than or Equal to Parent's Age
+
