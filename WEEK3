@@ -1,0 +1,80 @@
+import java.util.Scanner;
+
+class Publication {
+    String title;
+    String writer;
+    int cost;
+    int pageCount;
+
+    Publication(String title, String writer, int cost, int pageCount) {
+        this.title = title;
+        this.writer = writer;
+        this.cost = cost;
+        this.pageCount = pageCount;
+    }
+
+    @Override
+    public String toString() {
+        String publicationDetails = "Title: " + this.title + "\n" +
+                                    "Author: " + this.writer + "\n" +
+                                    "Cost: " + this.cost + "\n" +
+                                    "Pages: " + this.pageCount + "\n";
+        return publicationDetails;
+    }
+}
+
+public class LibraryData {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter the Number of Publications: ");
+        int count = input.nextInt();
+
+        Publication[] publications = new Publication[count];
+
+        for (int i = 0; i < count; i++) {
+            System.out.print("Enter title of publication " + (i + 1) + ": ");
+            String title = input.next();
+            System.out.print("Enter author of publication " + (i + 1) + ": ");
+            String author = input.next();
+            System.out.print("Enter cost of publication " + (i + 1) + ": ");
+            int cost = input.nextInt();
+            System.out.print("Enter number of pages in publication " + (i + 1) + ": ");
+            int pageCount = input.nextInt();
+
+            publications[i] = new Publication(title, author, cost, pageCount);
+        }
+
+        System.out.println("\nPublication Details:");
+        for (Publication publication : publications) {
+            System.out.println(publication);
+        }
+
+        input.close();
+    }
+}
+
+
+OUTPUT:
+Enter the Number of Publications: 2
+Enter title of publication 1: JavaBasics
+Enter author of publication 1: JohnDoe
+Enter cost of publication 1: 500
+Enter number of pages in publication 1: 300
+Enter title of publication 2: AdvancedJava
+Enter author of publication 2: JaneSmith
+Enter cost of publication 2: 800
+Enter number of pages in publication 2: 400
+
+Publication Details:
+Title: JavaBasics
+Author: JohnDoe
+Cost: 500
+Pages: 300
+
+Title: AdvancedJava
+Author: JaneSmith
+Cost: 800
+Pages: 400
+
+
