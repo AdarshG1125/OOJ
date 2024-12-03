@@ -35,3 +35,28 @@ public class QuadraticSolver{
         input.close();
     }
 }
+
+
+OUTPUT:
+
+Enter p: 1
+Enter q: -3
+Enter r: 2
+solver
+Real Roots
+Solution 1: 2.0
+Solution 2: 1.0
+
+Enter p: 1
+Enter q: 2
+Enter r: 1
+solver
+Roots are real and equal
+Solution: -1.0
+
+Enter p: 1
+Enter q: 2
+Enter r: 5
+solver
+Roots are complex
+
