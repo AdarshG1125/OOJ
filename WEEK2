@@ -1,0 +1,166 @@
+import java.util.Scanner;
+
+class Course {
+    int marks;
+    int creditHours;
+    int gradePoints;
+
+    void calculateGradePoints() {
+        if (marks >= 90) {
+            gradePoints = 10;
+        } else if (marks >= 80) {
+            gradePoints = 9;
+        } else if (marks >= 70) {
+            gradePoints = 8;
+        } else if (marks >= 60) {
+            gradePoints = 7;
+        } else if (marks >= 50) {
+            gradePoints = 6;
+        } else if (marks >= 40) {
+            gradePoints = 5;
+        } else {
+            gradePoints = 0;
+        }
+    }
+}
+
+class Learner {
+    String studentId;
+    String fullName;
+    double cumulativeGPA;
+    Course[] courses = new Course[8];
+    Scanner input = new Scanner(System.in);
+
+    Learner() {
+        for (int i = 0; i < 8; i++) {
+            courses[i] = new Course();
+        }
+    }
+
+    void getLearnerDetails() {
+        System.out.print("Enter the student ID: ");
+        studentId = input.next();
+        System.out.print("Enter the full name: ");
+        fullName = input.next();
+    }
+
+    void getCourseMarks() {
+        for (int i = 0; i < 8; i++) {
+            System.out.print("Enter marks for course " + (i + 1) + ": ");
+            courses[i].marks = input.nextInt();
+            System.out.print("Enter credit hours for course " + (i + 1) + ": ");
+            courses[i].creditHours = input.nextInt();
+            courses[i].calculateGradePoints();
+        }
+    }
+
+    void calculateGPA() {
+        double totalScore = 0;
+        int totalCredits = 0;
+
+        for (int i = 0; i < 8; i++) {
+            totalScore += (courses[i].gradePoints * courses[i].creditHours);
+            totalCredits += courses[i].creditHours;
+        }
+        cumulativeGPA = (totalCredits > 0) ? (totalScore / totalCredits) : 0;
+    }
+
+    void display() {
+        System.out.println("Student ID: " + studentId);
+        System.out.println("Full Name: " + fullName);
+        System.out.println("Cumulative GPA: " + cumulativeGPA);
+    }
+}
+
+public class StudentRecords {
+    public static void main(String[] args) {
+        System.out.println("aaryan prakash");
+        Learner[] learners = new Learner[3];
+
+        for (int j = 0; j < 3; j++) {
+            System.out.println("Enter the details for learner " + (j + 1) + ":");
+            learners[j] = new Learner();
+            learners[j].getLearnerDetails();
+            learners[j].getCourseMarks();
+            learners[j].calculateGPA();
+        }
+
+        for (int i = 0; i < 3; i++) {
+            learners[i].display();
+        }
+    }
+}
+
+
+
+OUTPUT:
+
+Enter the details for student 1:
+Enter the USN: 123
+Enter the Name: Alice
+Enter marks for subject 1: 85
+Enter credits for subject 1: 3
+Enter marks for subject 2: 92
+Enter credits for subject 2: 4
+Enter marks for subject 3: 78
+Enter credits for subject 3: 3
+Enter marks for subject 4: 88
+Enter credits for subject 4: 4
+Enter marks for subject 5: 65
+Enter credits for subject 5: 3
+Enter marks for subject 6: 74
+Enter credits for subject 6: 3
+Enter marks for subject 7: 80
+Enter credits for subject 7: 3
+Enter marks for subject 8: 90
+Enter credits for subject 8: 4
+USN: 123
+Name: Alice
+SGPA: 8.3125
+
+Enter the details for student 2:
+Enter the USN: 456
+Enter the Name: Bob
+Enter marks for subject 1: 50
+Enter credits for subject 1: 3
+Enter marks for subject 2: 65
+Enter credits for subject 2: 4
+Enter marks for subject 3: 72
+Enter credits for subject 3: 3
+Enter marks for subject 4: 60
+Enter credits for subject 4: 4
+Enter marks for subject 5: 55
+Enter credits for subject 5: 3
+Enter marks for subject 6: 78
+Enter credits for subject 6: 3
+Enter marks for subject 7: 67
+Enter credits for subject 7: 3
+Enter marks for subject 8: 81
+Enter credits for subject 8: 4
+USN: 456
+Name: Bob
+SGPA: 6.5
+
+Enter the details for student 3:
+Enter the USN: 789
+Enter the Name: Charlie
+Enter marks for subject 1: 40
+Enter credits for subject 1: 3
+Enter marks for subject 2: 55
+Enter credits for subject 2: 4
+Enter marks for subject 3: 35
+Enter credits for subject 3: 3
+Enter marks for subject 4: 60
+Enter credits for subject 4: 4
+Enter marks for subject 5: 45
+Enter credits for subject 5: 3
+Enter marks for subject 6: 70
+Enter credits for subject 6: 3
+Enter marks for subject 7: 60
+Enter credits for subject 7: 3
+Enter marks for subject 8: 75
+Enter credits for subject 8: 4
+USN: 789
+Name: Charlie
+SGPA: 5.375
+
